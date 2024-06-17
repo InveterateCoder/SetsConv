@@ -27,7 +27,9 @@ export default function (props: Props) {
         props.onLongPress && props.onLongPress(props.longValue || props.value)
       }
     >
-      <Text style={[styles.btnText, { color: theme.text }]}>{props.value}</Text>
+      <Text style={[styles.btnText, { color: theme.text }]}>
+        {props.value + (props.longValue ? `/ ${props.longValue}` : "")}
+      </Text>
     </TouchableHighlight>
   );
 }

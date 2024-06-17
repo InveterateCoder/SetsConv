@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Vibration, View } from "react-native";
 import Display, { Currency } from "./components/Display";
 import NumPad, { NumPadValue } from "./components/NumPad";
 import useTheme from "./hooks/useTheme";
@@ -232,6 +232,7 @@ export default function App() {
     updateCurrentValue(refinedValue, true);
   }, [activeCurrency]);
   const onNumPadPress = (btn: NumPadValue) => {
+    Vibration.vibrate(70, false);
     const currentValue = values[activeCurrency];
     switch (btn) {
       case NumPadValue.C:

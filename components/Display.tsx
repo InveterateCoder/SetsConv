@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, View, ViewStyle } from "react-native";
+import { StyleSheet, View, ViewStyle } from "react-native";
 import CurrencyDisplay from "./CurrencyDisplay";
 
 export enum Currency {
@@ -17,30 +17,27 @@ type DisplayProps = {
 export default function (props: DisplayProps) {
   return (
     <View style={[styles.container, props.style || {}]}>
-      <Pressable onPress={() => props.onActiveDisplayChange(Currency.USD)}>
-        <CurrencyDisplay
-          active={props.activeDisplay === Currency.USD}
-          currencyName={Currency.USD}
-          flagIsoCod="us"
-          currencyValue={props.values[Currency.USD]}
-        />
-      </Pressable>
-      <Pressable onPress={() => props.onActiveDisplayChange(Currency.RUB)}>
-        <CurrencyDisplay
-          active={props.activeDisplay === Currency.RUB}
-          currencyName={Currency.RUB}
-          flagIsoCod="ru"
-          currencyValue={props.values[Currency.RUB]}
-        />
-      </Pressable>
-      <Pressable onPress={() => props.onActiveDisplayChange(Currency.IRR)}>
-        <CurrencyDisplay
-          active={props.activeDisplay === Currency.IRR}
-          currencyName={Currency.IRR}
-          flagIsoCod="ir"
-          currencyValue={props.values[Currency.IRR]}
-        />
-      </Pressable>
+      <CurrencyDisplay
+        active={props.activeDisplay === Currency.USD}
+        currency={Currency.USD}
+        flagIsoCod="us"
+        currencyValue={props.values[Currency.USD]}
+        onPress={props.onActiveDisplayChange}
+      />
+      <CurrencyDisplay
+        active={props.activeDisplay === Currency.RUB}
+        currency={Currency.RUB}
+        flagIsoCod="ru"
+        currencyValue={props.values[Currency.RUB]}
+        onPress={props.onActiveDisplayChange}
+      />
+      <CurrencyDisplay
+        active={props.activeDisplay === Currency.IRR}
+        currency={Currency.IRR}
+        flagIsoCod="ir"
+        currencyValue={props.values[Currency.IRR]}
+        onPress={props.onActiveDisplayChange}
+      />
     </View>
   );
 }
