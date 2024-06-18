@@ -1,9 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Vibration, View } from "react-native";
+import * as SplashScreen from "expo-splash-screen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Display, { Currency } from "./components/Display";
 import NumPad, { NumPadValue } from "./components/NumPad";
 import useTheme from "./hooks/useTheme";
 import { useEffect, useState } from "react";
+
+SplashScreen.preventAutoHideAsync();
 
 const data = {
   disclaimer: "Usage subject to terms: https://openexchangerates.org/terms",
@@ -183,6 +187,7 @@ const data = {
   },
 };
 
+const RatesStorageKey = "@RatesStorageKey";
 const InitialValue = "0";
 
 const EmptyValues: Record<Currency, string> = Object.freeze({
@@ -198,6 +203,17 @@ export default function App() {
     [Currency.RUB]: data.rates[Currency.RUB],
     [Currency.IRR]: data.rates[Currency.IRR],
   });
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await AsyncStorage.getItem(RatesStorageKey);
+        // TODO data processing
+      } catch (err) {
+        console.error(err);
+        alert("Couldn't get AsyncStorage item");
+      }
+    })();
+  }, []);
   const [activeCurrency, changeActiveCurrency] = useState<Currency>(
     Currency.IRR
   );
